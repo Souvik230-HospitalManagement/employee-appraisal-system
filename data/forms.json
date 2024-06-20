@@ -1,0 +1,26 @@
+[
+  {
+    "username": "john",
+    "email": "souviksaha6954@gmail.com",
+    "role": "cse",
+    "rating": "4"
+  },
+  {
+    "username": "abcde1",
+    "email": "souviksaha6954@gmail.com",
+    "role": "employee",
+    "rating": "4"
+  },
+  {
+    "username": "abcde3",
+    "email": "souviksaha6954@gmail.com",
+    "role": "employee",
+    "rating": "3"
+  },
+  {
+    "username": "abcde56",
+    "email": "souviksaha6954@gmail.com",
+    "role": "employee",
+    "rating": "2"
+  }
+]

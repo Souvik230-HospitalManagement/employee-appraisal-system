@@ -1,0 +1,53 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR Page</title>
+</head>
+<body>
+  <h1>HR - All Ratings</h1>
+  <div id="ratings">
+   
+  </div>
+</body>
+<script>
+  fetch('/hr/ratings')
+    .then(response => response.json())
+    .then(data => {
+      const ratingsDiv = document.getElementById('ratings');
+      data.forEach(rating => {
+        const p = document.createElement('p');
+        p.textContent = `User: ${rating.username}, Role: ${rating.role}, Rating: ${rating.rating}`;
+        ratingsDiv.appendChild(p);
+      });
+    });
+</script>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR Page</title>
+</head>
+<body>
+  <h1>HR Dashboard</h1>
+  <h2>All Employee Ratings</h2>
+  <div id="ratings"></div>
+  <script>
+    fetch('/hr/allRatings')
+      .then(response => response.json())
+      .then(data => {
+        const ratingsDiv = document.getElementById('ratings');
+        ratingsDiv.innerHTML = '<ul>' + data.map(form => 
+          `<li>
+             Username: ${form.username}, 
+             Self Rating: ${form.rating}, 
+             Team Leader Rating: ${form.teamLeaderRating || 'Not Rated'}
+           </li>`
+        ).join('') + '</ul>';
+      });
+  </script>
+</body>
+</html>

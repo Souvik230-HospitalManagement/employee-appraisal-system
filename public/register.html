@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+</head>
+<body>
+  <h1>Registration Page</h1>
+  <form action="/auth/register" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <label for="role">Role:</label>
+    <select id="role" name="role" required>
+      <option value="employee">Employee</option>
+      <option value="team_leader">Team Leader</option>
+      <option value="hr">HR</option>
+    </select><br><br>
+    <div id="teamLeaderField">
+      <label for="teamLeader">Team Leader:</label>
+      <input type="text" id="teamLeader" name="teamLeader"><br><br>
+    </div>
+    <button type="submit">Register</button>
+  </form>
+  <a href="/login.html">Already have an account? Login here</a>
+</body>
+<script>
+  document.getElementById('role').addEventListener('change', function() {
+    const teamLeaderField = document.getElementById('teamLeaderField');
+    if (this.value === 'employee') {
+      teamLeaderField.style.display = 'block';
+    } else {
+      teamLeaderField.style.display = 'none';
+    }
+  });
+</script>
+</html>
