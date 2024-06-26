@@ -1,35 +1,27 @@
-// const express = require('express');
-// const validateToken = require('../utils/validateToken');
-// const Form = require('../models/Form');
-
-// const router = express.Router();
-
-// router.get('/allRatings', validateToken, (req, res) => {
-//   if (req.user.role !== 'hr') {
-//     return res.status(403).json({ message: 'Access denied' });
-//   }
-
-//   const forms = Form.fetchAll();
-//   res.json(forms);
-// });
-
-// module.exports = router;
-
-
-
+// routes/hr.js
 const express = require('express');
-const validateToken = require('../utils/validateToken');
-const Form = require('../models/Form');
-
 const router = express.Router();
+const Form = require('../models/Form');
+const validateToken = require('../utils/validateToken');
 
+// Fetch all ratings
 router.get('/allRatings', validateToken, (req, res) => {
-  if (req.user.role !== 'hr') {
-    return res.status(403).json({ message: 'Access denied' });
-  }
-
   const forms = Form.fetchAll();
   res.json(forms);
+});
+
+// HR rating an employee or team leader
+router.post('/rateEmployee', validateToken, (req, res) => {
+  const { username, hrRating } = req.body;
+  const form = Form.findByUsername(username);
+
+  if (form) {
+    form.hrRating = hrRating;
+    form.save();
+    res.status(201).send('HR rating submitted successfully');
+  } else {
+    res.status(404).json({ message: 'Form not found for the user' });
+  }
 });
 
 module.exports = router;

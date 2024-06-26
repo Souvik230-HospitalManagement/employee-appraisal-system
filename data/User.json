@@ -1,0 +1,114 @@
+[
+  {
+    "username": "john3",
+    "password": "$2b$10$LZCwRgza7seugu9tbbQM7uXkdqfM9dyUObeYluawXbFLMXLIAdkwq",
+    "role": "employee",
+    "teamLeader": "abcde2",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "abcde2",
+    "password": "$2b$10$jQG4YY6H9N1/V.pczRvnWuNKSMmBe51a975LjgJ5F50qnWADwurZG",
+    "role": "team_leader",
+    "teamLeader": null,
+    "hr": "hr1",
+    "ceo": null
+  },
+  {
+    "username": "john1",
+    "password": "$2b$10$m/R4Guu/S/6kT0B/.VsSBuc4KAS.xDTRzotcpyvviKC.qUv0X5UMW",
+    "role": "employee",
+    "teamLeader": "admin1",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "admin1",
+    "password": "$2b$10$7Df4lHvDDMvyeRFgRJi.vOrTlNAvGn0RgOGgWasBUTFAeCICAjO7.",
+    "role": "team_leader",
+    "teamLeader": null,
+    "hr": "hr1",
+    "ceo": null
+  },
+  {
+    "username": "john2",
+    "password": "$2b$10$7uLHHEXPMs66Z3TZzaN8Yuj9DuMtWIjShYCutpvESq/AmXnbHH2CS",
+    "role": "employee",
+    "teamLeader": "abcde2",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "johm",
+    "password": "$2b$10$k2RO8rKU2ZNlZmKT8Ep2OuLJnVEbE.ztqhioCNDc8rmejYFLgKbYO",
+    "role": "employee",
+    "teamLeader": "admin1",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "johm2",
+    "password": "$2b$10$uucQAzlriklpa8V8JA9vau6YM5GIPCLMtiwsWzFeFOyefTA8KscTG",
+    "role": "employee",
+    "teamLeader": "admin2",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "admin2",
+    "password": "$2b$10$gqVQzZnDuvdJt3DF9pQWouakbWxw8WWGi.L4.lovL/W5WKgkhnPPa",
+    "role": "team_leader",
+    "teamLeader": null,
+    "hr": "hr1",
+    "ceo": null
+  },
+  {
+    "username": "johm3",
+    "password": "$2b$10$plDsIBRiFot.MQKyYMp7JuSMUbUmImIbi7mHcW.Up4LcFVGBV5P0i",
+    "role": "employee",
+    "teamLeader": "abcde2",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "johm4",
+    "password": "$2b$10$xMg4xYTwjhz07qK8ra2Zmu2ZeOcGbNZd5oZiwxCsaA5r/q8V2yy8a",
+    "role": "employee",
+    "teamLeader": "admin2",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "abc1",
+    "password": "$2b$10$kjS.glpunE5mqcUj58dMSOxf4EVzggMghOE9ZOcbmZidB/dIN.lju",
+    "role": "employee",
+    "teamLeader": "admin1",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "abc2",
+    "password": "$2b$10$Kq0Al7S.dd8OGv4nqJebreOOTDvue3JN4s0VPfObp7bNg/D6LR7oW",
+    "role": "employee",
+    "teamLeader": "admin2",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "abc3",
+    "password": "$2b$10$NRFr1GeZVEBv0BjXSIE17.kCmHGZ8NywDEpAPOvBngqFGBlNWQCZq",
+    "role": "employee",
+    "teamLeader": "admin2",
+    "hr": null,
+    "ceo": null
+  },
+  {
+    "username": "hr1",
+    "password": "$2b$10$UfZCx24Ebq6wC5IS956QZOHEcPItzn63WF5j1T.C5ai6Ijz1QjBVq",
+    "role": "hr",
+    "teamLeader": null,
+    "hr": null,
+    "ceo": "ceo1"
+  }
+]

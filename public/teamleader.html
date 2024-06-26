@@ -1,30 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Team Leader Page</title>
-</head>
-<body>
-  <h1>Team Leader - Employee Ratings</h1>
-  <div id="ratings">
-    
-  </div>
-</body>
-<script>
-  fetch('/teamleader/ratings')
-    .then(response => response.json())
-    .then(data => {
-      const ratingsDiv = document.getElementById('ratings');
-      data.forEach(rating => {
-        const p = document.createElement('p');
-        p.textContent = `Employee: ${rating.username}, Rating: ${rating.rating}`;
-        ratingsDiv.appendChild(p);
-      });
-    });
-</script>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +10,7 @@
   <h2>Your Team Members</h2>
   <div id="teamMembers"></div>
   <h2>Rate a Team Member</h2>
-  <form action="/teamleader/rateEmployee" method="POST">
+  <form id="ratingForm">
     <label for="username">Employee Username:</label>
     <input type="text" id="username" name="username" required><br><br>
     <label for="teamLeaderRating">Team Leader Rating:</label>
@@ -45,12 +18,66 @@
     <button type="submit">Submit Rating</button>
   </form>
   <script>
-    fetch('/teamleader/team')
-      .then(response => response.json())
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch team members for logged-in team leader
+      fetch('/teamleader/team', {
+        headers: {
+          'Authorization': `Bearer ${document.cookie.split('token=')[1]}`
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch team members');
+        }
+      })
       .then(data => {
         const teamMembersDiv = document.getElementById('teamMembers');
-        teamMembersDiv.innerHTML = '<ul>' + data.map(member => `<li>${member.username} (${member.role})</li>`).join('') + '</ul>';
+        if (data.length > 0) {
+          teamMembersDiv.innerHTML = '<ul>' + data.map(member => `<li>${member.username} (${member.role})</li>`).join('') + '</ul>';
+        } else {
+          teamMembersDiv.innerHTML = 'No team members found.';
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching team members:', error);
       });
+
+      document.getElementById('ratingForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = {
+          username: formData.get('username'),
+          teamLeaderRating: formData.get('teamLeaderRating')
+        };
+
+        fetch('/teamleader/rateEmployee', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${document.cookie.split('token=')[1]}`
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          if (response.ok) {
+            return response.text(); // Assuming the response is text
+          } else if (response.status === 400) {
+            return response.json().then(err => { throw new Error(err.message); });
+          } else {
+            throw new Error('Employee need to give Self Ratting first: ' + response.statusText);
+          }
+        })
+        .then(data => {
+          alert('Rating submitted successfully');
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+      });
+    });
   </script>
 </body>
 </html>

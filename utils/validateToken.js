@@ -1,13 +1,3 @@
-// // utils/validateToken.js
-// const jwt = require('jsonwebtoken');
-// const { jwtSecret } = require('../config/config'); // Import JWT secret from config/config.js
-
-// function generateAccessToken(user) {
-//   return jwt.sign(user, jwtSecret, { expiresIn: '1h' });
-// }
-
-// module.exports = { generateAccessToken };
-// utils/validateToken.js
 // utils/validateToken.js
 const jwt = require('jsonwebtoken');
 const { jwtSecret } = require('../config/config');

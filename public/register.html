@@ -22,6 +22,14 @@
       <label for="teamLeader">Team Leader:</label>
       <input type="text" id="teamLeader" name="teamLeader"><br><br>
     </div>
+    <div id="hrField">
+      <label for="hr">HR:</label>
+      <input type="text" id="hr" name="hr"><br><br>
+    </div>
+    <div id="ceoField">
+      <label for="ceo">CEO:</label>
+      <input type="text" id="ceo" name="ceo"><br><br>
+    </div>
     <button type="submit">Register</button>
   </form>
   <a href="/login.html">Already have an account? Login here</a>
@@ -29,11 +37,23 @@
 <script>
   document.getElementById('role').addEventListener('change', function() {
     const teamLeaderField = document.getElementById('teamLeaderField');
+    const hrField = document.getElementById('hrField');
+    const ceoField = document.getElementById('ceoField');
+
+    teamLeaderField.style.display = 'none';
+    hrField.style.display = 'none';
+    ceoField.style.display = 'none';
+
     if (this.value === 'employee') {
       teamLeaderField.style.display = 'block';
-    } else {
-      teamLeaderField.style.display = 'none';
+    } else if (this.value === 'team_leader') {
+      hrField.style.display = 'block';
+    } else if (this.value === 'hr') {
+      ceoField.style.display = 'block';
     }
   });
+
+  // Initialize the correct field display
+  document.getElementById('role').dispatchEvent(new Event('change'));
 </script>
 </html>

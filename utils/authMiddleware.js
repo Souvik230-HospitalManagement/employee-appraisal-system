@@ -1,15 +1,20 @@
 // utils/authMiddleware.js
+
 const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('../config/config'); // Import JWT secret from config/config.js
+const { jwtSecret } = require('../config/config');
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (token == null) return res.sendStatus(401);
+  const token = req.cookies.token;
 
-  jwt.verify(token, jwtSecret, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
+  if (!token) {
+    return res.status(401).json({ message: 'No token, authorization denied' });
+  }
+
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Token is not valid' });
+    }
+    req.user = decoded;
     next();
   });
 }

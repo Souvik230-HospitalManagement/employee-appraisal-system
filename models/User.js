@@ -1,75 +1,34 @@
+// models/User.js
+
 const fs = require('fs');
 const path = require('path');
-
-const usersFilePath = path.join(__dirname, '../data/users.json');
+const dataPath = path.join(__dirname, '..', 'data', 'User.json');
 
 class User {
-  constructor(username, password, role, teamLeader) {
+  constructor(username, password, role, teamLeader, hr, ceo) {
     this.username = username;
     this.password = password;
     this.role = role;
-    this.teamLeader = teamLeader || null;
-  }
-
-  save() {
-    const users = User.fetchAll();
-    users.push(this);
-    fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-  }
-
-  static fetchAll() {
-    if (!fs.existsSync(usersFilePath)) {
-      return [];
-    }
-    const data = fs.readFileSync(usersFilePath);
-    return JSON.parse(data);
+    this.teamLeader = teamLeader;
+    this.hr = hr;
+    this.ceo = ceo;
   }
 
   static findByUsername(username) {
-    const users = User.fetchAll();
+    const users = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
     return users.find(user => user.username === username);
   }
 
   static findByTeamLeader(teamLeader) {
-    const users = User.fetchAll();
+    const users = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
     return users.filter(user => user.teamLeader === teamLeader);
+  }
+
+  save() {
+    const users = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+    users.push(this);
+    fs.writeFileSync(dataPath, JSON.stringify(users, null, 2));
   }
 }
 
 module.exports = User;
-
-
-// const fs = require('fs');
-// const path = require('path');
-
-// const usersFilePath = path.join(__dirname, '../data/users.json');
-
-// class User {
-//   constructor(username, password, role, teamLeader = null) {
-//     this.username = username;
-//     this.password = password;
-//     this.role = role;
-//     this.teamLeader = teamLeader;
-//   }
-
-//   save() {
-//     const users = User.getAllUsers();
-//     users.push(this);
-//     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-//   }
-
-//   static findByUsername(username) {
-//     const users = User.getAllUsers();
-//     return users.find(user => user.username === username);
-//   }
-
-//   static getAllUsers() {
-//     if (fs.existsSync(usersFilePath)) {
-//       const data = fs.readFileSync(usersFilePath);
-//       return JSON.parse(data);
-//     }
-//     return [];
-//   }
-// }
-
-// module.exports = User;

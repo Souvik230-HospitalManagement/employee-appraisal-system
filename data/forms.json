@@ -1,26 +1,66 @@
 [
   {
-    "username": "john",
+    "username": "john2",
     "email": "souviksaha6954@gmail.com",
-    "role": "cse",
-    "rating": "4"
+    "department": "Computer Science Engineering ",
+    "selfRating": "4",
+    "teamLeaderRating": "3",
+    "hrRating": "3"
   },
   {
-    "username": "abcde1",
+    "username": "john3",
     "email": "souviksaha6954@gmail.com",
-    "role": "employee",
-    "rating": "4"
+    "department": "Computer Science Engineering ",
+    "selfRating": "3",
+    "teamLeaderRating": "3",
+    "hrRating": null
   },
   {
-    "username": "abcde3",
+    "username": "john1",
     "email": "souviksaha6954@gmail.com",
-    "role": "employee",
-    "rating": "3"
+    "department": "Computer Science Engineering ",
+    "selfRating": "4",
+    "teamLeaderRating": "3",
+    "hrRating": null
   },
   {
-    "username": "abcde56",
+    "username": "johm3",
     "email": "souviksaha6954@gmail.com",
-    "role": "employee",
-    "rating": "2"
+    "department": "Computer Science Engineering ",
+    "selfRating": "3",
+    "teamLeaderRating": "3",
+    "hrRating": "3"
+  },
+  {
+    "username": "johm",
+    "email": "souviksaha6954@gmail.com",
+    "department": "Computer Science Engineering ",
+    "selfRating": "4",
+    "teamLeaderRating": "3",
+    "hrRating": null
+  },
+  {
+    "username": "johm4",
+    "email": "souviksaha6954@gmail.com",
+    "department": "Computer Science Engineering ",
+    "selfRating": "4",
+    "teamLeaderRating": null,
+    "hrRating": "3"
+  },
+  {
+    "username": "abc1",
+    "email": "souviksaha6954@gmail.com",
+    "department": "Computer Science Engineering ",
+    "selfRating": "4",
+    "teamLeaderRating": "3",
+    "hrRating": "4"
+  },
+  {
+    "username": "abc2",
+    "email": "souviksaha6954@gmail.com",
+    "department": "Computer Science Engineering ",
+    "selfRating": "4",
+    "teamLeaderRating": "3",
+    "hrRating": null
   }
 ]

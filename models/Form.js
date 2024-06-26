@@ -1,32 +1,21 @@
+// // models/Form.js
 // const fs = require('fs');
 // const path = require('path');
 
-// const formsFilePath = path.join(__dirname, '../data/forms.json');
+// const dataPath = path.join(__dirname, '..', 'data', 'forms.json');
 
 // class Form {
-//   constructor(username, rating, teamLeaderRating = null) {
+//   constructor(username, email, department, selfRating, teamLeaderRating = null, hrRating = null) {
 //     this.username = username;
-//     this.rating = rating;
+//     this.email = email;
+//     this.department = department;
+//     this.selfRating = selfRating;
 //     this.teamLeaderRating = teamLeaderRating;
-//   }
-
-//   save() {
-//     const forms = Form.fetchAll();
-//     const index = forms.findIndex(form => form.username === this.username);
-//     if (index > -1) {
-//       forms[index] = this;
-//     } else {
-//       forms.push(this);
-//     }
-//     fs.writeFileSync(formsFilePath, JSON.stringify(forms, null, 2));
+//     this.hrRating = hrRating;
 //   }
 
 //   static fetchAll() {
-//     if (!fs.existsSync(formsFilePath)) {
-//       return [];
-//     }
-//     const data = fs.readFileSync(formsFilePath);
-//     return JSON.parse(data);
+//     return JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 //   }
 
 //   static findByUsername(username) {
@@ -34,54 +23,57 @@
 //     return forms.find(form => form.username === username);
 //   }
 
-//   static findByTeamLeader(teamLeader) {
-//     const users = User.fetchAll().filter(user => user.teamLeader === teamLeader);
-//     return users.map(user => Form.findByUsername(user.username)).filter(Boolean);
+//   save() {
+//     const forms = Form.fetchAll();
+//     const existingFormIndex = forms.findIndex(form => form.username === this.username);
+
+//     if (existingFormIndex !== -1) {
+//       forms[existingFormIndex] = this;
+//     } else {
+//       forms.push(this);
+//     }
+
+//     fs.writeFileSync(dataPath, JSON.stringify(forms, null, 2));
 //   }
 // }
 
 // module.exports = Form;
 
-  
+
+
+
+// models/Form.js
 const fs = require('fs');
 const path = require('path');
-
-const formsFilePath = path.join(__dirname, '../data/forms.json');
+const formsPath = path.join(__dirname, '../data/forms.json');
+let forms = require(formsPath);
 
 class Form {
-  constructor(username, rating, teamLeaderRating = null) {
+  constructor(username, email, department, selfRating, teamLeaderRating = null, hrRating = null) {
     this.username = username;
-    this.rating = rating;
+    this.email = email;
+    this.department = department;
+    this.selfRating = selfRating;
     this.teamLeaderRating = teamLeaderRating;
-  }
-
-  save() {
-    const forms = Form.fetchAll();
-    const index = forms.findIndex(form => form.username === this.username);
-    if (index > -1) {
-      forms[index] = this;
-    } else {
-      forms.push(this);
-    }
-    fs.writeFileSync(formsFilePath, JSON.stringify(forms, null, 2));
+    this.hrRating = hrRating;
   }
 
   static fetchAll() {
-    if (!fs.existsSync(formsFilePath)) {
-      return [];
-    }
-    const data = fs.readFileSync(formsFilePath);
-    return JSON.parse(data);
+    return forms;
   }
 
   static findByUsername(username) {
-    const forms = Form.fetchAll();
     return forms.find(form => form.username === username);
   }
 
-  static findByTeamLeader(teamLeader) {
-    const users = User.fetchAll().filter(user => user.teamLeader === teamLeader);
-    return users.map(user => Form.findByUsername(user.username)).filter(Boolean);
+  save() {
+    const existingIndex = forms.findIndex(form => form.username === this.username);
+    if (existingIndex >= 0) {
+      forms[existingIndex] = this;
+    } else {
+      forms.push(this);
+    }
+    fs.writeFileSync(formsPath, JSON.stringify(forms, null, 2));
   }
 }
 

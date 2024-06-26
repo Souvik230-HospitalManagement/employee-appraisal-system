@@ -1,29 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HR Page</title>
-</head>
-<body>
-  <h1>HR - All Ratings</h1>
-  <div id="ratings">
-   
-  </div>
-</body>
-<script>
-  fetch('/hr/ratings')
-    .then(response => response.json())
-    .then(data => {
-      const ratingsDiv = document.getElementById('ratings');
-      data.forEach(rating => {
-        const p = document.createElement('p');
-        p.textContent = `User: ${rating.username}, Role: ${rating.role}, Rating: ${rating.rating}`;
-        ratingsDiv.appendChild(p);
-      });
-    });
-</script>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,22 +6,78 @@
   <title>HR Page</title>
 </head>
 <body>
-  <h1>HR Dashboard</h1>
-  <h2>All Employee Ratings</h2>
-  <div id="ratings"></div>
+  <h1>HR Page</h1>
+  <h2>All Ratings</h2>
+  <div id="allRatings"></div>
+  <h2>Rate an Employee or Team Leader</h2>
+  <form id="ratingForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="hrRating">HR Rating:</label>
+    <input type="number" id="hrRating" name="hrRating" min="1" max="5" required><br><br>
+    <button type="submit">Submit Rating</button>
+  </form>
   <script>
-    fetch('/hr/allRatings')
-      .then(response => response.json())
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch all ratings
+      fetch('/hr/allRatings', {
+        headers: {
+          'Authorization': `Bearer ${document.cookie.split('token=')[1]}`
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch ratings');
+        }
+      })
       .then(data => {
-        const ratingsDiv = document.getElementById('ratings');
-        ratingsDiv.innerHTML = '<ul>' + data.map(form => 
-          `<li>
-             Username: ${form.username}, 
-             Self Rating: ${form.rating}, 
-             Team Leader Rating: ${form.teamLeaderRating || 'Not Rated'}
-           </li>`
-        ).join('') + '</ul>';
+        const allRatingsDiv = document.getElementById('allRatings');
+        if (data.length > 0) {
+          allRatingsDiv.innerHTML = '<ul>' + data.map(form => `<li>${form.username} - Self Rating: ${form.selfRating}, Team Leader Rating: ${form.teamLeaderRating}, HR Rating: ${form.hrRating}</li>`).join('') + '</ul>';
+        } else {
+          allRatingsDiv.innerHTML = 'No ratings found.';
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching ratings:', error);
       });
+
+      document.getElementById('ratingForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const data = {
+          username: formData.get('username'),
+          hrRating: formData.get('hrRating')
+        };
+
+        fetch('/hr/rateEmployee', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${document.cookie.split('token=')[1]}`
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          if (response.ok) {
+            return response.text(); // Assuming the response is text
+          } else if (response.status === 404) {
+            return response.json().then(err => { throw new Error(err.message); });
+          } else {
+            throw new Error('Failed to submit rating: ' + response.statusText);
+          }
+        })
+        .then(data => {
+          alert('Rating submitted successfully');
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+      });
+    });
   </script>
 </body>
 </html>
